@@ -71,7 +71,7 @@ python busters/site/build.py             # → dist/catalog.js, dist/qr/*
 - **YureiResearchInstitute** — 月兎組セーブの復号・形式（[yw_save](https://github.com/YureiResearchInstitute/yw_save)）
 - **n123git** — ミッション条件式の形式（[yw-cond](https://github.com/n123git/yw-cond)）
 - **onepiecefreak3** — XQ32の仕様（[XtractQuery](https://github.com/onepiecefreak3/XtractQuery)）
-- **Yu08083** — サイト・QR生成・データ整備・実機検証
+- **Yu08083** — ROM解析・サイト・QR生成・データ整備・実機検証
 
 ## ライセンス
 
