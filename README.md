@@ -68,9 +68,6 @@ python busters/site/build.py             # → dist/catalog.js, dist/qr/*
 
 このサイトは、次の方々の解析・実装の上に成り立っています。
 
-- **0xiuks** — QRペイロードの元になった解析・PoC
-  [yw-QR-pwn](https://github.com/0xiuks/yw-QR-pwn)
-- **Codex（OpenAI）** — バスターズ v2.3 のROM解析（`Busters.md` / `Busters_functions.md`）
 - **YureiResearchInstitute** — 月兎組セーブの復号・形式（[yw_save](https://github.com/YureiResearchInstitute/yw_save)）
 - **n123git** — ミッション条件式の形式（[yw-cond](https://github.com/n123git/yw-cond)）
 - **onepiecefreak3** — XQ32の仕様（[XtractQuery](https://github.com/onepiecefreak3/XtractQuery)）
