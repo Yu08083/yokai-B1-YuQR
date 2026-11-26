@@ -52,35 +52,6 @@ qr/old3ds/flags/     フラグQR（旧3DS）
 qr/new3ds/…          同じ構成（New 3DS）
 ```
 
-画像はすべて可逆WebP（`VP8L` のみ、メタ情報なし）です。
-
-## 生成
-
-QRは `ywb_export.py` で作り、`busters/site/build.py` が `catalog.js` と `qr/` を組み立てます。
-
-```
-python ywb_import.py                     # Busters.md → busters_catalog.json
-python ywb_export.py --out busters/qr    # 旧3DS / New 3DS 両方
-python busters/site/build.py             # → dist/catalog.js, dist/qr/*
-```
-
-## クレジット
-
-- **0xiuks** — 協力（QRペイロードの解析）
-- **Yu08083** — ROM解析・サイト・QR生成・データ整備・実機検証
-
-## 参考
-
-- **YureiResearchInstitute** — 月兎組セーブの復号・形式（[yw_save](https://github.com/YureiResearchInstitute/yw_save)）
-- **n123git** — ミッション条件式の形式（[yw-cond](https://github.com/n123git/yw-cond)）
-- **onepiecefreak3** — XQ32の仕様（[XtractQuery](https://github.com/onepiecefreak3/XtractQuery)）
-
-## ライセンス
-
-- このリポジトリのサイトコード（`index.html` / `app.js` / `style.css`）: **MIT License**
-- QR画像（`qr/`）: **CC0**（自由に利用・再配布可。クレジット不要）
-- `catalog.js` の収録データ: 上記の参照元の成果を含みます。利用時は各参照元の条件に従ってください。
-- ゲームの画像・名称・データの権利は、株式会社レベルファイブおよび関連する権利者に帰属します。
 
 ## 免責事項
 
