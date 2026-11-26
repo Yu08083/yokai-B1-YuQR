@@ -4,12 +4,14 @@ const { items, yokai, bosses, flags, trophies, legends, devices } = window.qrCat
 const groups = { yokai, item: items, boss: bosses, legend: legends, trophy: trophies, flag: flags };
 const folders = { yokai: "yokai", item: "item", boss: "boss_dex", legend: "legend", trophy: "trophy", flag: "flags" };
 let device = "old3ds";
+let route = "normal";
 
 const collator = new Intl.Collator("ja", { numeric: true });
 const pageSize = 30;
 const $ = (selector) => document.querySelector(selector);
 const tabs = [...document.querySelectorAll("[data-tab]")];
 const deviceButtons = [...document.querySelectorAll("[data-device]")];
+const routeButtons = [...document.querySelectorAll("[data-route]")];
 const queryInput = $("#query");
 const clearSearch = $("#clear-search");
 const categorySelect = $("#categories");
@@ -41,7 +43,7 @@ function numberLabel(number) {
 }
 
 function imageUrl(group, filename) {
-  return `qr/${device}/${folders[group]}/${encodeURIComponent(filename)}`;
+  return `qr/${route}/${device}/${folders[group]}/${encodeURIComponent(filename)}`;
 }
 
 function entryMeta(entry, group) {
@@ -81,6 +83,7 @@ function readLocation() {
   const rawTab = params.get("tab");
   const tab = Object.hasOwn(groups, rawTab) ? rawTab : "yokai";
   device = params.get("dev") === "new3ds" ? "new3ds" : "old3ds";
+  route = params.get("rt") === "tekki" ? "tekki" : "normal";
   const rawPage = Number(params.get("page"));
   return {
     tab,
@@ -94,6 +97,7 @@ function writeLocation(method) {
   const params = new URLSearchParams();
   if (state.tab !== "yokai") params.set("tab", state.tab);
   if (device !== "old3ds") params.set("dev", device);
+  if (route !== "normal") params.set("rt", route);
   if (state.category && state.category !== "all") params.set("category", state.category);
   if (state.query) params.set("q", state.query);
   if (state.page > 1) params.set("page", String(state.page));
@@ -176,6 +180,12 @@ function render() {
   }
   for (const button of deviceButtons) {
     button.setAttribute("aria-pressed", String(button.dataset.device === device));
+  }
+  for (const button of routeButtons) {
+    button.setAttribute("aria-pressed", String(button.dataset.route === route));
+  }
+  for (const body of document.querySelectorAll("[data-prereq]")) {
+    body.hidden = body.dataset.prereq !== route;
   }
 
   resultHeading.textContent = {
@@ -342,6 +352,15 @@ for (const button of deviceButtons) {
   button.addEventListener("click", () => {
     if (button.dataset.device === device) return;
     device = button.dataset.device;
+    render();
+    writeLocation("push");
+    if (dialog.open && currentEntry) openQr(currentEntry, currentGroup);
+  });
+}
+for (const button of routeButtons) {
+  button.addEventListener("click", () => {
+    if (button.dataset.route === route) return;
+    route = button.dataset.route;
     render();
     writeLocation("push");
     if (dialog.open && currentEntry) openQr(currentEntry, currentGroup);

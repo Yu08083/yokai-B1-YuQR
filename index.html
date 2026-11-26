@@ -23,6 +23,11 @@
         <a href="#tab=trophy" data-tab="trophy">トロフィー</a>
         <a href="#tab=flag" data-tab="flag">フラグ</a>
       </nav>
+      <div class="device" role="group" aria-label="ルート">
+        <span class="device-label">ルート</span>
+        <button type="button" data-route="normal" aria-pressed="true">通常</button>
+        <button type="button" data-route="tekki" aria-pressed="false">鉄鬼軍</button>
+      </div>
       <div class="device" role="group" aria-label="本体の機種">
         <span class="device-label">機種</span>
         <button type="button" data-device="old3ds" aria-pressed="true">旧3DS</button>
@@ -37,7 +42,7 @@
         <span class="prereq-title">前提条件</span>
         <span class="prereq-hint">はじめての方はこちら</span>
       </summary>
-      <div class="prereq-body">
+      <div class="prereq-body" data-prereq="normal">
         <p>QRを読み取る前に、次の状態にしてください（赤猫団内の月兎組 v2.3）。</p>
         <ol class="prereq-steps">
           <li>かべがみを「ふんわりバスターズ」に設定する。</li>
@@ -49,6 +54,18 @@
         </ol>
         <p class="prereq-note">読み取り後は「無効なQRコードを使用しています。」と出ますが、そのまま閉じれば反映されています。</p>
         <p class="prereq-note"><strong>QRはOld 3DSとNew 3DSで別です。</strong> 右上の「機種」を、実際に遊ぶ本体に合わせてください。間違えると読み取り後に落ちます。</p>
+      </div>
+      <div class="prereq-body" data-prereq="tekki" hidden>
+        <p>鉄鬼軍ルートで読み取る場合の状態です（赤猫団内の月兎組 v2.3）。</p>
+        <ol class="prereq-steps">
+          <li>操作キャラを「まむし行事」にする。</li>
+          <li>それ以外の準備（チーム編成・うんがい三面鏡など）は外す。</li>
+          <li>かべがみ・おんぼろアパートは通常ルートと同じにする。</li>
+          <li>鉄鬼軍の連動用機会の前でセーブする。</li>
+          <li>端末を再起動してセーブをロードし、他に何もせずすぐQRを読み取る。</li>
+        </ol>
+        <p class="prereq-note">読み取り後は「無効なQRコードを使用しています。」と出ますが、そのまま閉じれば反映されています。</p>
+        <p class="prereq-note"><strong>QRはOld 3DSとNew 3DSで別です。</strong> 右上の「機種」を、実際に遊ぶ本体に合わせてください。</p>
       </div>
     </details>
 
