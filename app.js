@@ -1,8 +1,8 @@
 "use strict";
 
-const { items, yokai, bosses, flags, trophies, devices } = window.qrCatalog;
-const groups = { yokai, item: items, boss: bosses, trophy: trophies, flag: flags };
-const folders = { yokai: "yokai", item: "item", boss: "boss_dex", trophy: "trophy", flag: "flags" };
+const { items, yokai, bosses, flags, trophies, legends, devices } = window.qrCatalog;
+const groups = { yokai, item: items, boss: bosses, legend: legends, trophy: trophies, flag: flags };
+const folders = { yokai: "yokai", item: "item", boss: "boss_dex", legend: "legend", trophy: "trophy", flag: "flags" };
 let device = "old3ds";
 
 const collator = new Intl.Collator("ja", { numeric: true });
@@ -47,6 +47,7 @@ function imageUrl(group, filename) {
 function entryMeta(entry, group) {
   if (group === "item") return entry.qty99 ? "99個" : `×${entry.qty ?? 1}`;
   if (group === "flag") return entry.category ?? "フラグ";
+  if (group === "legend") return `No. ${entry.number} · 封印解除`;
   if (group === "trophy") {
     if (entry.rank === "まとめて") return "まとめて解除";
     return `#${String(entry.number).padStart(2, "0")} · ${entry.rank} · ${entry.points}pt`;
@@ -63,6 +64,9 @@ for (const entry of [...yokai, ...bosses]) {
 }
 for (const entry of flags) {
   entry.search = normalize(`${entry.name} ${entry.bit ?? ""} ${entry.hash ?? ""} ${entry.category ?? ""} フラグ`);
+}
+for (const entry of legends) {
+  entry.search = normalize(`${entry.name} ${entry.number ?? ""} レジェンド`);
 }
 for (const entry of trophies) {
   entry.search = normalize(`${entry.name} ${entry.number ?? ""} ${entry.rank ?? ""} トロフィー`);
@@ -148,7 +152,7 @@ function render() {
   state.page = Math.min(state.page, pageCount);
   const start = (state.page - 1) * pageSize;
 
-  $("#section-title").textContent = { yokai: "妖怪", item: "アイテム", boss: "ボス図鑑", trophy: "トロフィー", flag: "フラグ" }[tab];
+  $("#section-title").textContent = { yokai: "妖怪", item: "アイテム", boss: "ボス図鑑", legend: "レジェンド", trophy: "トロフィー", flag: "フラグ" }[tab];
   filters.hidden = !hasFilter;
   if (hasFilter) {
     const options = [["all", "すべて"], ...categoryKeys.map((key) => [key, key])];
@@ -162,7 +166,7 @@ function render() {
     categorySelect.value = current;
   }
   queryInput.placeholder = { yokai: "妖怪名・番号で検索", item: "アイテム名で検索",
-    boss: "ボス名・図鑑番号で検索", trophy: "トロフィー名で検索", flag: "フラグ名で検索" }[tab];
+    boss: "ボス名・図鑑番号で検索", legend: "レジェンド名で検索", trophy: "トロフィー名で検索", flag: "フラグ名で検索" }[tab];
   queryInput.setAttribute("aria-label", queryInput.placeholder);
   if (queryInput.value !== query) queryInput.value = query;
   clearSearch.hidden = query.length === 0;
@@ -176,7 +180,7 @@ function render() {
 
   resultHeading.textContent = {
     yokai: "大辞典順", item: "名前順（99個のものは99個）",
-    boss: "図鑑番号順", trophy: "トロフィー順（まとめて解除あり）",
+    boss: "図鑑番号順", legend: "レジェンド順（封印解除）", trophy: "トロフィー順（まとめて解除あり）",
     flag: "イベント・ミッションのフラグ",
   }[tab];
   $("#result-count").textContent = `${filtered.length.toLocaleString("ja-JP")}件`;
